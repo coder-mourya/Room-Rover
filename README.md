@@ -33,7 +33,7 @@ To get started with the project:
 
 ## Feedback and Suggestions
 
-Your feedback is important to us! If you encounter any issues or have suggestions for improvements, please [open an issue](link-to-issues) on GitHub.
+Your feedback is important to us! If you encounter any issues or have suggestions for improvements, please [open an issue](https://github.com/coder-mourya/Room-Rover/issues/1) on GitHub.
 
 Thank you for checking out Room Rover! We appreciate your interest and patience as we continue to build and improve the application.
 
