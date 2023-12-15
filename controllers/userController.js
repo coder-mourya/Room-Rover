@@ -2,6 +2,7 @@
 
 // backend/controllers/userController.js
 
+const passport = require('passport');
 const User = require('../models/user'); // Adjust the path based on your project structure
 
 // Function to get user profile by ID
@@ -27,12 +28,29 @@ const registerUser = async (req, res) => {
     res.status(201).json(newUser);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal server error 22222' });
+    res.status(500).json({ message: 'Internal server error ' });
+  }
+};
+
+const loginUsers  = passport.authenticate('local', {
+  successRedirect: 'api/success',
+  failureRedirect: 'api/failure',
+})
+
+const createUser = async (req, res) => {
+  try {
+    const user = await User.create(req.body);
+    res.status(201).json(user);
+  } catch (error) {
+    console.error('Error creating user:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
 
 
 module.exports = {
   getUserProfile,
-  registerUser
+  registerUser,
+  createUser,
+  loginUsers,
 };

@@ -1,12 +1,14 @@
 //Controller for property-related actions
 
 
-// backend/controllers/propertyController.js
-
 const Property = require('../models/property'); // Adjust the path based on your project structure
 
 // Function to get all properties
 const getAllProperties = async (req, res) => {
+
+
+  console.log('Request to get all properties received.');
+
   try {
     const properties = await Property.find();
     res.status(200).json(properties);
@@ -34,6 +36,7 @@ const createProperty = async (req, res) => {
     const property = await Property.create(req.body);
     res.status(201).json(property);
   } catch (error) {
+    console.error('Error creating property:', error);
     res.status(500).json({ message: 'Internal server error 3' });
   }
 };

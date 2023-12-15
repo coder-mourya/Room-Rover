@@ -5,22 +5,29 @@ const http  = require('http')
 const passport = require('passport');
 const session = require('express-session');
 const connectToDatabase = require('./config/database');
-const User = require('./models/user'); // Adjust the path based on your project structure
-const propertyRoutes = require('./routes/propertyRoutes')
-const userRoutes = require('./routes/userRoutes');
+const path = require('path');
+
+const User = require('./models/user'); 
+const propertyRoutes = require('./routes/api/propertyRoutes')
+const userRoutes = require('./routes/api/userRoutes');
+
 
 const app = express();
 
 // Connect to the database
 connectToDatabase();
 
-// Middleware and other configurations go here
+
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+
+//app.use(loggingMiddleware);
 
 // Use property routes
-app.use('/api', propertyRoutes);
+app.use('/api', require('./routes/api/propertyRoutes'));
 
 // Use user routes
-app.use('/api', userRoutes);
+app.use('/api', require('./routes/api/userRoutes'));
 
 
 // Set up session handling

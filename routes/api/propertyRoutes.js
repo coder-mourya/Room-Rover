@@ -1,10 +1,9 @@
 // Routes for property-related actions
 
-// backend/routes/propertyRoutes.js
 
 const express = require('express');
 const router = express.Router();
-const propertyController = require('../controllers/propertyController'); // Adjust the path based on your project structure
+const propertyController = require('../../controllers/propertyController'); // Adjust the path based on your project structure
 
 // Route to get all properties
 router.get('/properties', propertyController.getAllProperties);
@@ -17,4 +16,10 @@ router.post('/properties', propertyController.createProperty);
 
 // Other property-related routes go here
 
+
+router.get('/test', (req, res) => {
+    res.send('Test route works!');
+  });
+
+  
 module.exports = router;

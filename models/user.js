@@ -1,6 +1,5 @@
 //MongoDB schema for users
 
-// backend/models/user.js
 
 const mongoose = require('mongoose');
 const passportLocalMongoose = require('passport-local-mongoose');
@@ -8,6 +7,8 @@ const passportLocalMongoose = require('passport-local-mongoose');
 const userSchema = new mongoose.Schema({
   username: String,
   password: String,
+  email: String,  
+  fullName: String,
   // Add other fields as needed
 });
 

@@ -1,6 +1,5 @@
 //MongoDB schema for properties
 
-// backend/models/property.js
 
 const mongoose = require('mongoose');
 

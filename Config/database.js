@@ -2,13 +2,12 @@
 
 const mongoose = require('mongoose');
 
-// Replace 'your_database_url' and 'your_database_name' with your actual MongoDB URL and database name
-const dbUrl = "mongodb+srv://ajaykumarshakya560:Se5hK7YFqNxBPLfm@roomapp1.nmgflcs.mongodb.net/?retryWrites=true&w=majority"
 
 const connectToDatabase = async () => {
   try {
     // Connect to the MongoDB database
-    await mongoose.connect(dbUrl, {
+    await mongoose.connect("mongodb+srv://ajaykumarshakya560:Se5hK7YFqNxBPLfm@roomapp1.nmgflcs.mongodb.net/?retryWrites=true&w=majority",
+     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
