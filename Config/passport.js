@@ -1,4 +1,3 @@
-//Passport.js configuration for authentication
 
 // backend/config/passport.js
 

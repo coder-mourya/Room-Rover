@@ -1,9 +1,6 @@
-// Routes for property-related actions
-
-
 const express = require('express');
 const router = express.Router();
-const propertyController = require('../../controllers/propertyController'); // Adjust the path based on your project structure
+const propertyController = require('../../controllers/propertyController'); 
 
 // Route to get all properties
 router.get('/properties', propertyController.getAllProperties);
@@ -14,12 +11,15 @@ router.get('/properties/:id', propertyController.getPropertyById);
 // Route to create a new property
 router.post('/properties', propertyController.createProperty);
 
-// Other property-related routes go here
+// Route to update a property by ID
+router.put('/properties/:id', propertyController.updatePropertyById);
 
+// Route to delete a property by ID
+router.delete('/properties/:id', propertyController.deletePropertyById);
 
+// Test route
 router.get('/test', (req, res) => {
-    res.send('Test route works!');
-  });
+  res.send('Test route works!');
+});
 
-  
 module.exports = router;
