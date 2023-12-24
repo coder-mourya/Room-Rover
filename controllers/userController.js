@@ -27,10 +27,22 @@ const registerUser = async (req, res) => {
 };
 
 // User login using Passport local strategy
-const userlogin = passport.authenticate('local', {
-  successRedirect: 'api/success',
-  failureRedirect: 'api/failure',
-});
+const userlogin = (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      return res.status(500).json({ success: false, error: 'Internal server error' });
+    }
+    if (!user) {
+      return res.status(401).json({ success: false, error: 'Authentication failed' });
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        return res.status(500).json({ success: false, error: 'Internal server error' });
+      }
+      return res.status(200).json({ success: true, user });
+    });
+  })(req, res, next);
+};
 
 module.exports = {
   getUserProfile,
