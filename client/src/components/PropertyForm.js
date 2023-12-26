@@ -1,4 +1,3 @@
-// PropertyForm.js
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
@@ -30,7 +29,7 @@ const PropertyForm = () => {
     e.preventDefault();
 
     try {
-      // Add logic to associate the property with the current user (owner)
+    
       propertyData.owner = user.id;
 
       // Call the API to create a new property

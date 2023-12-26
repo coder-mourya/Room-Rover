@@ -1,5 +1,3 @@
-// src/services/propertyService.js
-
 import api from './api';
 
 const propertyService = {

@@ -3,7 +3,7 @@ const cors = require('cors');
 const http = require('http');
 const passport = require('passport');
 const session = require('express-session');
-const connectToDatabase = require('./config/database');
+const connectToDatabase = require('./Config/database');
 const path = require('path');
 
 const User = require('./models/user');
@@ -42,6 +42,12 @@ passport.use(User.createStrategy());
 // Serialize and deserialize user for sessions
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+app.get('api/checkLoggedIn', (req, res) =>{
+  const loggedIn = req.isAuthenticated();
+
+  res.json({loggedIn});
+})
 
 // Create an HTTP server and pass the Express app as a callback
 const server = http.createServer(app);

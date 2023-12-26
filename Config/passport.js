@@ -1,5 +1,3 @@
-// backend/config/passport.js
-
 const passport = require('passport');
 const { Strategy: LocalStrategy } = require('passport-local');
 const { authenticate, serializeUser: _serializeUser, deserializeUser: _deserializeUser } = require('../models/user');

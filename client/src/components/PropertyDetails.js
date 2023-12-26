@@ -27,7 +27,6 @@ const PropertyDetails = () => {
           <p>Description: {property.description}</p>
           <p>Location: {property.location}</p>
           <p>Price: ${property.price}</p>
-          {/* Add more details as needed */}
         </div>
       ) : (
         <p>Loading property details...</p>

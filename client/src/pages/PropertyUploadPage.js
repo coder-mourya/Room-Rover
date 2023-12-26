@@ -1,4 +1,3 @@
-// PropertyUploadPage.js
 import React from 'react';
 import PropertyForm from '../components/PropertyForm';
 

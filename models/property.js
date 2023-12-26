@@ -20,8 +20,8 @@ const propertySchema = new mongoose.Schema({
   },
   location: {
     type: String,
-    required: true,
-    // Add index if needed: index: true,
+    required: true
+    
   },
   price: {
     type: Number,
