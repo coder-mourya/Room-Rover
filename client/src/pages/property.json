@@ -1,0 +1,72 @@
+[
+    {
+        "id": "1",
+        "imgName": "img1.jpg",
+        "title": "Cozy Apartment",
+        "location": "City1",
+        "price": 1200
+    },
+    {
+        "id": "2",
+        "imgName": "img2.jpg",
+        "title": "Downtown Loft",
+        "location": "City2",
+        " price": 2000
+    },
+    {
+        "id": "3",
+        "imgName": "img3.jpeg",
+        "title": "Suburban House",
+        "location": "City3",
+        " price": 1800
+    },
+
+    {
+        "id": "4",
+        "imgName": "img4.jpg",
+        "title": "Suburban House",
+        "location": "City3",
+        " price": 1800
+    },
+
+    {
+        "id": "5",
+        "imgName": "img5.jpg",
+        "title": "Suburban House",
+        "location": "City3",
+        " price": 1800
+    },
+
+    {
+        "id": "6",
+        "imgName": "img6.jpg",
+        "title": "Suburban House",
+        "location": "City3",
+        " price": 1800
+    },
+
+    {
+        "id": "7",
+        "imgName": "img7.jpg",
+        "title": "Suburban House",
+        "location": "City3",
+        " price": 1800
+    },
+
+    {
+        "id": "8",
+        "imgName": "img8.jpg",
+        "title": "Suburban House",
+        "location": "City3",
+        " price": 1800
+    },
+
+
+    {
+        "id": "9",
+        "imgName": "img9.jpg",
+        "title": "Suburban House",
+        "location": "City3",
+        " price": 1800
+    }
+]
