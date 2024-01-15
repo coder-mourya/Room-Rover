@@ -5,7 +5,7 @@ const getAllProperties = async (req, res) => {
   console.log('Request to get all properties received.');
 
   try {
-    const properties = await Property.find();
+    const properties = await Property.find({});
     res.status(200).json({ success: true, data: properties });
   } catch (error) {
     console.error('Error getting properties:', error);

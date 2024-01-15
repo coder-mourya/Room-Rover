@@ -2,10 +2,10 @@
 const mongoose = require('mongoose');
 
 
-const connectToDatabase = async (req,res) => {
+const connectToDatabase = async (uri) => {
   try {
     // Connect to the MongoDB database
-    await mongoose.connect("mongodb+srv://ajaykumarshakya560:Se5hK7YFqNxBPLfm@roomapp1.nmgflcs.mongodb.net/roomapp1?retryWrites=true&w=majority",
+    await mongoose.connect(uri,
      {
       useNewUrlParser: true,
       useUnifiedTopology: true,

@@ -1,51 +1,71 @@
-const passport = require('passport');
 const User = require('../models/user');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken")
 
-// Function to get user profile by ID
-const getUserProfile = async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
-    if (!user) {
-      return res.status(404).json({ success: false, error: 'User not found' });
-    }
-    res.status(200).json({ success: true, data: user });
-  } catch (error) {
-    res.status(500).json({ success: false, error: 'Internal server error' });
-  }
-};
 
 // Function to register a new user
 const registerUser = async (req, res) => {
   try {
-    const newUser = await User.create(req.body);
-    console.log('New User ID:', newUser._id);
-    res.status(201).json({ success: true, data: newUser });
+    const {username, email, number, password, role} = res.body;
+
+    const hashedPassword  = await bcrypt.hash(password, 10);
+
+    const newUser = new User({
+      username,
+      email,
+      number,
+      password:hashedPassword,
+      role,
+    });
+
+    await newUser.save();
+
+    res.status(201).json({message: "new user register successfully"})
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: 'Internal server error' });
   }
 };
 
+
+
 // User login using Passport local strategy
-const userlogin = (req, res, next) => {
-  passport.authenticate('local', (err, user, info) => {
-    if (err) {
-      return res.status(500).json({ success: false, error: 'Internal server error' });
+const userlogin = async (req, res) =>{
+  try {
+
+    const {email, password} = res.body;
+// find user by username 
+    const mail = await User.findOne({email});
+
+    if(!mail){
+      return res.status(401).json({error : "invalid detials"});
+
     }
-    if (!user) {
-      return res.status(401).json({ success: false, error: 'Authentication failed' });
-    }
-    req.logIn(user, (err) => {
-      if (err) {
-        return res.status(500).json({ success: false, error: 'Internal server error' });
-      }
-      return res.status(200).json({ success: true, user });
-    });
-  })(req, res, next);
-};
+// check password 
+const passwordMatch  = await bcrypt.compare(password, mail.password);
+
+if(!passwordMatch){
+  return res.status(401).json({error : "invalid password "})
+}
+
+//for genrate jwt token 
+
+const token = jwt.sign({username: user.username, role: user.role},
+  'secrete-key',
+  {expiresIn: "1h"}
+  
+  );
+
+  res.json({token})
+
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 module.exports = {
-  getUserProfile,
+  
   registerUser,
   userlogin,
 };
