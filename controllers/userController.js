@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken")
 // Function to register a new user
 const registerUser = async (req, res) => {
   try {
-    const {username, email, number, password, role} = res.body;
+    const {username, email, number, password, role} = req.body;
 
     const hashedPassword  = await bcrypt.hash(password, 10);
 
@@ -33,16 +33,18 @@ const registerUser = async (req, res) => {
 const userlogin = async (req, res) =>{
   try {
 
-    const {email, password} = res.body;
+    const {email, password} = req.body;
+    console.log('Email:', email);
+    console.log('Password:', password);
 // find user by username 
-    const mail = await User.findOne({email});
+    const user = await User.findOne({email});
 
-    if(!mail){
+    if(!user){
       return res.status(401).json({error : "invalid detials"});
 
     }
 // check password 
-const passwordMatch  = await bcrypt.compare(password, mail.password);
+const passwordMatch  = await bcrypt.compare(password, user.password);
 
 if(!passwordMatch){
   return res.status(401).json({error : "invalid password "})
@@ -50,7 +52,7 @@ if(!passwordMatch){
 
 //for genrate jwt token 
 
-const token = jwt.sign({username: user.username, role: user.role},
+const token = jwt.sign({email: user.email, role: User.role},
   'secrete-key',
   {expiresIn: "1h"}
   

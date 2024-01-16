@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
 import "./style.css"
+import axios from 'axios';
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (e) => {
-    
+  const handleLogin = async (e) => {  
     e.preventDefault();
 
-    // Add my authentication logic here (e.g., calling an API)
-    // For now, let's log the email and password to the console
+
+    try {
+    await axios.post("http://localhost:5000/auth/login", {email, password});
+    console.log("Login successfull" , Response.data);
+
+    } catch (error) {
+      console.log(error);
+    }
+   
     console.log('Email:', email);
     console.log('Password:', password);
   };
@@ -48,6 +55,8 @@ const LoginPage = () => {
         <button type="submit" className="btn btn-primary mt-4">
           Login
         </button>
+
+        <p className='mt-4'>Don't have an account? <a href="/register">Register</a></p>
       </form>
       </div>
     </div>
