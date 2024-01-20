@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 
 const propertySchema = new mongoose.Schema({
   owner: {
-    type: mongoose.Schema.Types,
-    ref: 'User',
+    type: String,
     required: true,
   },
   title: {
@@ -28,6 +27,10 @@ const propertySchema = new mongoose.Schema({
     required: true,
     min: 0,
   },
+  image: {
+    type: String,
+    required: true,
+  }
 });
 
 const Property = mongoose.model('Property', propertySchema);

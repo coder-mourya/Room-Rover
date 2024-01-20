@@ -1,19 +1,38 @@
 import React, { useState } from 'react';
 import "../pages/style.css"
+import axios from 'axios';
 const PropertyForm = () => {
   const [propertyData, setPropertyData] = useState({
+    owner: '',
     title: '',
+    description: '',
     location: '',
     price: '',
-    imgName: '',
+    image: '',
   });
 
-  const handleUpload = (e) => {
+  const handleUpload = async (e) => {
     e.preventDefault();
 
-    // for Add my property upload logic here (e.g., calling an API)
-    // For now, let's log the property data to the console
-    console.log('Property Data:', propertyData);
+    const formData = new FormData();
+    formData.append('owner', propertyData.owner);
+    formData.append('title', propertyData.title);
+    formData.append('description', propertyData.description);
+    formData.append('location', propertyData.location);
+    formData.append('price', propertyData.price);
+    formData.append('image', propertyData.image);
+
+    try {
+      await axios.post('http://localhost:5000/properties/create', formData,{
+        headers: {
+          "Content-Type": 'multipart/form-data'
+        },
+
+      });
+      console.log("proprty data : ", propertyData)
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -21,7 +40,19 @@ const PropertyForm = () => {
       <div className='custom-style'>
 
       <h2>Upload Property</h2>
-      <form onSubmit={handleUpload} className="container">
+      <form action='upload' onSubmit={handleUpload} className="container">
+      <div className="form-group">
+          <label>Owner</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Enter your Name"
+            value={propertyData.owner}
+            onChange={(e) => setPropertyData({ ...propertyData, owner: e.target.value })}
+            required
+            />
+        </div>
+
         <div className="form-group">
           <label>Title</label>
           <input
@@ -30,6 +61,18 @@ const PropertyForm = () => {
             placeholder="Enter property title"
             value={propertyData.title}
             onChange={(e) => setPropertyData({ ...propertyData, title: e.target.value })}
+            required
+            />
+        </div>
+
+        <div className="form-group">
+          <label>Description</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Enter property title"
+            value={propertyData.description}
+            onChange={(e) => setPropertyData({ ...propertyData, description: e.target.value })}
             required
             />
         </div>
@@ -63,8 +106,7 @@ const PropertyForm = () => {
           <input
             type="file"
             className="form-control"
-            value={propertyData.imgName}
-            onChange={(e) => setPropertyData({ ...propertyData, imgName: e.target.value })}
+            onChange={(e) => setPropertyData({ ...propertyData, image: e.target.files[0] })}
             required
             />
         </div>

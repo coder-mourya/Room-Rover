@@ -13,6 +13,8 @@ const LoginPage = () => {
     await axios.post("http://localhost:5000/auth/login", {email, password});
     console.log("Login successfull" , Response.data);
 
+      window.location.href ='/dashboard';
+      
     } catch (error) {
       console.log(error);
     }

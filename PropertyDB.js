@@ -1,7 +1,7 @@
 require("dotenv").config();
 const connectDb = require("./Config/database");
 const properties = require("./models/property");
-
+const multer = require('multer');
 const propertyJson = require("./property.json");
 
 const start = async () =>{

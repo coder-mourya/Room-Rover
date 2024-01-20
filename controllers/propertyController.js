@@ -1,4 +1,5 @@
 const Property = require('../models/property');
+const multer = require('multer');
 
 // Function to get all properties
 const getAllProperties = async (req, res) => {
@@ -29,14 +30,30 @@ const getPropertyById = async (req, res) => {
 
 // Function to create a new property
 const createProperty = async (req, res) => {
+  console.log('Request to create new property received.');
   try {
-    const property = await Property.create(req.body);
-    res.status(201).json({ success: true, data: property });
+    const {owner, description, title, location, price} = req.body;
+    const imagePath = req.file.path;
+    const newProperty = new Property({
+      owner,
+      title,
+      description,
+      location,
+      price,
+      image: imagePath,
+      
+    })
+
+    await newProperty.save();
+
+    res.status(201).json({ success: true, data: Property });
+
   } catch (error) {
     console.error('Error creating property:', error);
     res.status(500).json({ success: false, error: 'Internal server error' });
   }
 };
+
 
 // Function to update a property by ID
 const updatePropertyById = async (req, res) => {

@@ -4,21 +4,24 @@
       "title": "Beautiful House for Rent",
       "description": "Spacious 3-bedroom house with a stunning view.",
       "location": "123 Main Street, Cityville",
-      "price": 2000
+      "price": 2000,
+      "image": "img1.jpg"
     },
     {
       "owner": "user456", 
       "title": "Cozy Apartment in the Heart of Downtown",
       "description": "Modern one-bedroom apartment with all amenities.",
       "location": "456 Elm Street, Metropolis",
-      "price": 1500
+      "price": 1500,
+      "image": "img2.jpg"
     },
     {
       "owner": "user789", 
       "title": "Vacation Home by the Beach",
       "description": "Relaxing beachfront property with breathtaking views.",
       "location": "789 Ocean Drive, Paradise Bay",
-      "price": 3000
+      "price": 3000,
+      "image": "img3.jpg"
     }
   ]
   

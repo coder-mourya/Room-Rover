@@ -3,6 +3,7 @@ import logo from "./logo.jpg"
 import "./navbar.css"
 
 
+
 const Navbar = () => {
 
   return (
@@ -29,7 +30,7 @@ const Navbar = () => {
             <a href="/" className="nav-link">Home</a>
           </li>
           <li className="nav-item">
-            <a href="/propertyuploadPage" className="nav-link">Upload Property</a>
+            <a href="/PropertyForm" className="nav-link">Upload Property</a>
           </li>
         </ul>
 
