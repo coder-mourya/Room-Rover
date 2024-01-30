@@ -9,15 +9,18 @@ const Dashboard = () => {
     // Fetch owner's properties from the backend
     const fetchProperties = async () => {
       try {
+        
         const token = localStorage.getItem('token'); 
 
-        const response = await axios.get('http://localhost:5000/owner/properties', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(`http://localhost:5000/properties/owner`, {
 
-        setProperties(response.data);
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+
+        })
+
+        setProperties(response.data.data);
       } catch (error) {
         console.error('Error fetching properties:', error);
       }
@@ -31,7 +34,7 @@ const Dashboard = () => {
       const token = localStorage.getItem('token');
 
       // Delete property on the backend
-      await axios.delete(`http://localhost:5000/owner/properties/${propertyId}`, {
+      await axios.delete(`http://localhost:5000/properties/${propertyId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -46,20 +49,23 @@ const Dashboard = () => {
 
   return (
     <>
-    <div>
+    <div className='container'>
       <h1>Owner Dashboard</h1>
-      <div>
+      <div className="row">
         <h2>Your Properties</h2>
+
         <ul>
           {properties.map((property) => (
-              <li key={property._id}>
-              <strong>{property.title}</strong> - {property.location} - ${property.price}
-              <button onClick={() => handleDeleteProperty(property._id)}>Delete</button>
+
+              <li key={property._id} className='col-md-6 mx-4'>
+              <strong>{property.title} </strong> - {property.location} - ${property.price}
+
+              <button className='btn btn-danger mx-4' onClick={() => handleDeleteProperty(property._id)}>Delete</button>
             </li>
             
             ))}
 
-            <li>
+            <li className='mt-4'>
                 <p>No properties found.</p>
                 <p>Please create a new property.</p>
                 <a href="/propertyForm">Create Property</a>

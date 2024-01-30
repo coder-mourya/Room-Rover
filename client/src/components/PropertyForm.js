@@ -40,7 +40,7 @@ const PropertyForm = () => {
       <div className='custom-style'>
 
       <h2>Upload Property</h2>
-      <form action='upload' onSubmit={handleUpload} className="container">
+      <form action='upload' onSubmit={handleUpload} className="container mt-4">
       <div className="form-group">
           <label>Owner</label>
           <input
@@ -67,10 +67,10 @@ const PropertyForm = () => {
 
         <div className="form-group">
           <label>Description</label>
-          <input
+          <textarea
             type="text"
             className="form-control"
-            placeholder="Enter property title"
+            placeholder="Write Aboout your property"
             value={propertyData.description}
             onChange={(e) => setPropertyData({ ...propertyData, description: e.target.value })}
             required

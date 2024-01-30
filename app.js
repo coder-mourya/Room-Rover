@@ -19,7 +19,7 @@ app.use(cors({
 }));
 
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.get("/", (req, res) =>{
   res.send("Hello this is room rover app")

@@ -66,8 +66,23 @@ const token = jwt.sign({email: user.email, role: User.role},
   }
 }
 
+
+// function for get userDetails 
+
+const getDetails = async ( req, res) => {
+         console.log("request recieved for user details");
+
+         try {
+            const userDetails = await User.find({});
+            res.status(201).json({success: true , data : userDetails  })
+         } catch (error) {
+            console.log("failed to get user details" , error);
+         }
+}
+
 module.exports = {
   
   registerUser,
   userlogin,
+  getDetails,
 };

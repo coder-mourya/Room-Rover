@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
+const authMidleWare = require("../Middleware/auth")
 
 const propertyController = require("../controllers/propertyController")
 
@@ -20,7 +20,9 @@ const upload = multer({storage: storage});
 
 router.get('/', propertyController.getAllProperties);
 
-router.get('/properties/:id', propertyController.getPropertyById);
+router.get('/owner',    propertyController.getPropertyByOwner);
+
+router.delete('/properties/:id', propertyController.deletePropertyById);
 
 router.post('/create', upload.single('image'),  propertyController.createProperty);
 

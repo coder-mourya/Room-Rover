@@ -6,7 +6,7 @@ const getAllProperties = async (req, res) => {
   console.log('Request to get all properties received.');
 
   try {
-    const properties = await Property.find({});
+    const properties = await Property.find(req.query);
     res.status(200).json({ success: true, data: properties });
   } catch (error) {
     console.error('Error getting properties:', error);
@@ -15,18 +15,22 @@ const getAllProperties = async (req, res) => {
 };
 
 // Function to get a specific property by ID
-const getPropertyById = async (req, res) => {
+const getPropertyByOwner = async (req, res) => {
   try {
-    const property = await Property.findById(req.params.id);
+    
+    const property = await Property.find({});
+
     if (!property) {
       return res.status(404).json({ success: false, error: 'Property not found' });
     }
     res.status(200).json({ success: true, data: property });
+
   } catch (error) {
     console.error('Error getting property by ID:', error);
-    res.status(500).json({ success: false, error: 'Internal server error' });
+    res.status(500).json({ success: false, error: 'Internal server error 15' });
   }
 };
+
 
 // Function to create a new property
 const createProperty = async (req, res) => {
@@ -72,7 +76,11 @@ const updatePropertyById = async (req, res) => {
 // Function to delete a property by ID
 const deletePropertyById = async (req, res) => {
   try {
-    const property = await Property.findByIdAndDelete(req.params.id);
+    console.log("request to delete proprty by id");
+    const property = req.params.id;
+
+    await Property.findByIdAndDelete(property);
+
     if (!property) {
       return res.status(404).json({ success: false, error: 'Property not found' });
     }
@@ -85,7 +93,7 @@ const deletePropertyById = async (req, res) => {
 
 module.exports = {
   getAllProperties,
-  getPropertyById,
+  getPropertyByOwner,
   createProperty,
   updatePropertyById,
   deletePropertyById,

@@ -1,10 +1,23 @@
-import React from 'react';
+import React, {   useState } from 'react';
 import logo from "./logo.jpg"
 import "./navbar.css"
 
 
 
 const Navbar = () => {
+
+  const [searchQuery, setSearchQuery] = useState(" ");
+
+
+
+  const handleSearch = (value) =>{
+
+    setSearchQuery(value);
+
+    console.log(setSearchQuery)
+  
+  }
+  
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -17,7 +30,6 @@ const Navbar = () => {
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#navbarNav"
-        
         aria-controls="navbarNav"
         aria-expanded="false"
         aria-label="Toggle navigation"
@@ -34,23 +46,31 @@ const Navbar = () => {
           </li>
         </ul>
 
-
         <ul className="navbar-nav  " id="custom-with">
-
-
           <li className='nav-item'>
             <a href="/Login" className='nav-link'>Login</a>
           </li>
-         
           <li className='nav-item'>
             <a href="/Register" className='nav-link'>Register</a>
           </li>
-         
+          <form className="d-flex">
+            
+            <input
 
-        <form className="d-flex">
-          <input type="search"  id="search"  className="form-control me-3" placeholder="Search" aria-label="Search"/>
-          <button className="btn btn-outline-success" type="submit">Search</button>
-        </form>
+            
+
+              type="Search"
+              id="search"
+              value={searchQuery}
+              onChange={(e) => handleSearch(e.target.value)}
+              className="form-control me-3"
+              placeholder="Search"
+              aria-label="Search"
+              />
+             
+              
+              <button className="btn btn-outline-success" type="submit">Search</button>
+          </form>
         </ul>
       </div>
     </nav>

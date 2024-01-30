@@ -1,26 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import "./style.css";
 
-const HomePage = () => {
+const HomePage = ({searchQuery}) => {
   const [properties, setProperties] = useState([]);
+  
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/properties");
-        setProperties(response.data.data); 
+        const response = await axios.get("http://localhost:5000/properties", {
+          params: { location: searchQuery } 
+        });
+        setProperties(response.data.data);
       } catch (error) {
         console.log(error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [searchQuery]);
 
   return (
     <div className="container mt-4">
       <h2 className="mb-4">Available Properties</h2>
       <div className="row">
+        
         {properties.map((property) => (
           <div key={property._id} className="col-lg-4 col-md-6 mb-4">
             <div className="card">
@@ -32,7 +37,9 @@ const HomePage = () => {
                   <span className="font-weight-bold">Location:</span> {property.location}<br />
                   <span className="font-weight-bold">Price:</span> Rs.{property.price}/month
                 </p>
-                <button className="btn btn-primary">View Details</button>
+                <button className="btn btn-primary custom-btn">
+                  <a href="/PropertyDetails">View Details</a>
+                </button>
               </div>
             </div>
           </div>
