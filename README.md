@@ -17,7 +17,7 @@ Welcome to Room Rover! 🏡 This is an ongoing project aimed at simplifying the 
 - Frontend: React
 - Backend: Node.js
 - Database: MongoDB
-- User Authentication: Passport.js
+- User Authentication: jwt token
 - API Architecture: RESTful
 
 ## How to Contribute
