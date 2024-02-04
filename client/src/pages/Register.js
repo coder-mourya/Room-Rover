@@ -15,6 +15,13 @@ const RegisterPage = () => {
     try {
       await axios.post("http://localhost:5000/auth/register", { username, password, email, number, role });
       console.log("Registeration successfull")
+
+      if(role === 'owner'){
+        window.location.href = '/dashboard'
+      }else{
+        window.location.href ='/'
+      }
+
     } catch (error) {
       console.log(error);
     }

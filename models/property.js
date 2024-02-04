@@ -5,6 +5,12 @@ const propertySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+
+  number: {
+    type: Number,
+    required: true,
+  },
+
   title: {
     type: String,
     required: true,
@@ -20,7 +26,7 @@ const propertySchema = new mongoose.Schema({
   location: {
     type: String,
     required: true
-    
+
   },
   price: {
     type: Number,

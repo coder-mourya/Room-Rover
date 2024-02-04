@@ -1,70 +1,43 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-
-const PropertyDetails = () => {
-
-    const [property, setPropertyDetails] = useState([]);
-    const [User, setUserDetails]  = useState([]);
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 
-    useEffect(() => {
 
-        const fetchData = async () => {
-            try {
-                const response = await axios.get("http://localhost:5000/properties");
-                setPropertyDetails(response.data.data);
-            } catch (error) {
-                console.log(error);
-            }
-        }
 
-        fetchData();
+const PropertyDetails = ({ propertyId }) => {
 
-        const getUser = async () =>{
-            try {
-                const response = await axios.get("http://localhost:5000/auth/users");
-                setUserDetails(response.data.data);
-            } catch (error) {
-                 console.log(error);
-            }
-        }
+  const [properties, setProperty] = useState([]);
 
-        getUser();
-    }, [])
 
-    return (
 
-        <>
-            <div className="container text-center mt-5">
+  useEffect(() => {
+    const fetchProperty = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/properties?_id=${propertyId}`);
 
-                <div className="row">
-                    {
-                        property.map((property) => {
+        console.log("getedd in proprtydetails : ", propertyId);
 
-                            return (
-                                <div key={property._id} className="col-md-6">
+        setProperty(response.data.data || []);
+      } catch (error) {
+        console.error('Error fetching property:', error);
+      }
+    };
 
-                                    <h2>{property.owner}</h2>
-                                    <p>{property.description} </p>
+    fetchProperty();
+  }, [propertyId]);
 
-                                    <h3>{User.map((User) => {
-                                        return (
-
-                                            <p key= {User._id}>{User.number}</p>
-                                        )
-                                    })}</h3>
-
-                                </div>
-
-                            )
-
-                        })
-                    }
-
-                </div>
-            </div>
-        </>
-    )
-}
+  return (
+    <div className="container mt-4">
+      <h2>Property Details</h2>
+      {properties.map((Property) => (
+        <div key={Property._id}>
+          <p>Owner Name :- {Property.owner}</p>
+          <p>Owner Numbers:-{Property.number} </p>
+          <p>Titile :- {Property.title}</p>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 export default PropertyDetails;

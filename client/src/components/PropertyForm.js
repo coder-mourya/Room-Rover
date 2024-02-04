@@ -4,6 +4,7 @@ import axios from 'axios';
 const PropertyForm = () => {
   const [propertyData, setPropertyData] = useState({
     owner: '',
+    number: '',
     title: '',
     description: '',
     location: '',
@@ -16,6 +17,7 @@ const PropertyForm = () => {
 
     const formData = new FormData();
     formData.append('owner', propertyData.owner);
+    formData.append('number', propertyData.number);
     formData.append('title', propertyData.title);
     formData.append('description', propertyData.description);
     formData.append('location', propertyData.location);
@@ -30,6 +32,8 @@ const PropertyForm = () => {
 
       });
       console.log("proprty data : ", propertyData)
+
+      window.location.href = './dashboard'
     } catch (error) {
       console.log(error);
     }
@@ -52,6 +56,17 @@ const PropertyForm = () => {
             required
             />
         </div>
+
+        <div className="form-grup">
+            <label> Mobile number</label>
+            <input
+              type="number"
+              className="form-control"
+              placeholder="Enter your Mobile number"
+              value={propertyData.number}
+              onChange={(e) => setPropertyData({...propertyData, number: e.target.value})}
+            />
+          </div>
 
         <div className="form-group">
           <label>Title</label>

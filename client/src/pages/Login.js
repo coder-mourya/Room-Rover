@@ -4,16 +4,23 @@ import axios from 'axios';
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('tanant');
 
   const handleLogin = async (e) => {  
     e.preventDefault();
 
 
     try {
-    await axios.post("http://localhost:5000/auth/login", {email, password});
+    await axios.post("http://localhost:5000/auth/login", {email, password, role});
+
     console.log("Login successfull" , Response.data);
+      
+    if(role === 'owner'){
 
       window.location.href ='/dashboard';
+    }else{
+      window.location.href = '/';
+    }
       
     } catch (error) {
       console.log(error);
@@ -53,6 +60,16 @@ const LoginPage = () => {
             required
           />
         </div>
+
+      <div className='form-grup'>
+            <label> Role</label>
+
+            <select className='form-control' value={role} onChange={(e) => setRole(e.target.value)}>
+              <option value="tanant"> Tanant </option>
+              <option value="owner">Owner</option>
+            </select>
+
+          </div>
 
         <button type="submit" className="btn btn-primary mt-4">
           Login

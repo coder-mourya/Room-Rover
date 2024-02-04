@@ -25,7 +25,7 @@ app.get("/", (req, res) =>{
   res.send("Hello this is room rover app")
 })
 
-// Use property routes
+// Use property routes 
  app.use('/properties', propertyRoutes);
 
 app.use('/uploads' , express.static('uploads'));// this path for serve image to the front end 

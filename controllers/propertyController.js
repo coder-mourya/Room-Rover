@@ -36,10 +36,11 @@ const getPropertyByOwner = async (req, res) => {
 const createProperty = async (req, res) => {
   console.log('Request to create new property received.');
   try {
-    const {owner, description, title, location, price} = req.body;
+    const {owner,number, description, title, location, price} = req.body;
     const imagePath = req.file.path;
     const newProperty = new Property({
       owner,
+      number,
       title,
       description,
       location,

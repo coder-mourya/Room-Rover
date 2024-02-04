@@ -34,7 +34,7 @@ const Dashboard = () => {
       const token = localStorage.getItem('token');
 
       // Delete property on the backend
-      await axios.delete(`http://localhost:5000/properties/${propertyId}`, {
+      await axios.delete(`http://localhost:5000/properties/properties/${propertyId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -58,7 +58,7 @@ const Dashboard = () => {
           {properties.map((property) => (
 
               <li key={property._id} className='col-md-6 mx-4'>
-              <strong>{property.title} </strong> - {property.location} - ${property.price}
+              <strong>{property.title} </strong> - {property.location} - &#8377;{property.price}
 
               <button className='btn btn-danger mx-4' onClick={() => handleDeleteProperty(property._id)}>Delete</button>
             </li>

@@ -4,18 +4,17 @@ import "./navbar.css"
 
 
 
-const Navbar = () => {
 
-  const [searchQuery, setSearchQuery] = useState(" ");
+const Navbar = ({onSearch}) => {
+
+  const [searchLocation, setSearchLocation] = useState("");
 
 
 
-  const handleSearch = (value) =>{
-
-    setSearchQuery(value);
-
-    console.log(setSearchQuery)
-  
+  const handleSearch = () =>{
+ 
+      console.log("sent from navbar:", searchLocation)
+     onSearch(searchLocation)
   }
   
 
@@ -61,15 +60,15 @@ const Navbar = () => {
 
               type="Search"
               id="search"
-              value={searchQuery}
-              onChange={(e) => handleSearch(e.target.value)}
+              value={searchLocation}
+              onChange={(e) => setSearchLocation(e.target.value)}
               className="form-control me-3"
               placeholder="Search"
               aria-label="Search"
               />
              
               
-              <button className="btn btn-outline-success" type="submit">Search</button>
+              <button className="btn btn-outline-success" type="button" onClick={handleSearch}>Search</button>
           </form>
         </ul>
       </div>
