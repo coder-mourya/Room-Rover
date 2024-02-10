@@ -120,6 +120,7 @@ const PropertyForm = () => {
           <label>Image Name</label>
           <input
             type="file"
+            
             className="form-control"
             onChange={(e) => setPropertyData({ ...propertyData, image: e.target.files[0] })}
             required

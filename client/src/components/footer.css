@@ -5,3 +5,17 @@
     font-family: 'Roboto', sans-serif;
 
  }
+
+ ul li {
+   list-style-type: none;
+   display: inline;
+ }
+
+ ul li a{
+   text-decoration: none;
+   color: white;
+ }
+
+ ul li a:hover{
+   color: black;
+ }

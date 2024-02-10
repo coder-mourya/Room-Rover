@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import authUtils from "../utils/auth";
 import axios from 'axios';
 import "./style.css";
 
-const HomePage = ({ searchLocation , getUser}) => {
+const HomePage = ({ searchLocation, getUser }) => {
 
   const [properties, setProperties] = useState([]);
 
-  const [getId, setId] = useState("");
+  const [getId, setId] = useState("");// for pass data to property details compo using props
+
+  const navigate = useNavigate();  // for navigate propertyDetsial compo
   
+
+ 
 
 
   useEffect(() => {
@@ -24,7 +30,7 @@ const HomePage = ({ searchLocation , getUser}) => {
 
         const response = await axios.get(url)
         console.log("recieved in home :", searchLocation);
-        
+
         setProperties(response.data.data || []);
 
       } catch (error) {
@@ -40,21 +46,34 @@ const HomePage = ({ searchLocation , getUser}) => {
   }, [searchLocation]);
 
 
-  const handleViewDetails = (propertyId) =>{
-    
+
+
+  const handleViewDetails = (propertyId) => {
+
     setId(propertyId);
     getUser(propertyId);
     console.log("View details clicked for property ID:", getId, propertyId);
 
+
+// for checking user logged in or logout
+    if (!authUtils.isLoggedIn()) {
+
+      alert("You need to login first");
+      navigate("./login")
+    } else {
+      navigate("./PropertyDetails")
+
+    }
+
   }
-  
+
 
   return (
     <div className="container mt-4">
       <h2 className="mb-4">Available Properties</h2>
       <div className="row">
 
-      
+
         {properties.map((property) => (
           <div key={property._id} className="col-lg-4 col-md-6 mb-4">
             <div className="card">
@@ -67,7 +86,7 @@ const HomePage = ({ searchLocation , getUser}) => {
                   <span className="font-weight-bold">Price:</span> Rs.{property.price}/month
                 </p>
                 <button className="btn btn-primary custom-btn" onClick={() => handleViewDetails(property._id)}>
-                <Link to={`/PropertyDetails`}>View Details</Link>
+                  <Link to={`/PropertyDetails`}>View Details</Link>
                 </button>
               </div>
             </div>

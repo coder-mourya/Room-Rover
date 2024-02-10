@@ -9,14 +9,14 @@ const Dashboard = () => {
     // Fetch owner's properties from the backend
     const fetchProperties = async () => {
       try {
-        
-        const token = localStorage.getItem('token'); 
+
+        const token = localStorage.getItem('token');
 
         const response = await axios.get(`http://localhost:5000/properties/owner`, {
 
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
 
         })
 
@@ -27,7 +27,7 @@ const Dashboard = () => {
     };
 
     fetchProperties();
-  }, []); 
+  }, []);
 
   const handleDeleteProperty = async (propertyId) => {
     try {
@@ -49,31 +49,31 @@ const Dashboard = () => {
 
   return (
     <>
-    <div className='container'>
-      <h1>Owner Dashboard</h1>
-      <div className="row">
-        <h2>Your Properties</h2>
+      <div className='container'>
+        <h1>Owner Dashboard</h1>
+        <div >
+          <h2>Your Properties</h2>
 
-        <ul>
-          {properties.map((property) => (
+          <ul>
+            {properties.map((property) => (
 
-              <li key={property._id} className='col-md-6 mx-4'>
-              <strong>{property.title} </strong> - {property.location} - &#8377;{property.price}
+              <li key={property._id} className='col-md-6 mx-4 mt-2'>
+                <strong>{property.title} </strong> - {property.location} - &#8377;{property.price}
 
-              <button className='btn btn-danger mx-4' onClick={() => handleDeleteProperty(property._id)}>Delete</button>
-            </li>
-            
+                <button className='btn btn-danger mx-4 mt-2' onClick={() => handleDeleteProperty(property._id)}>Delete</button>
+              </li>
+
             ))}
 
             <li className='mt-4'>
-                <p>No properties found.</p>
-                <p>Please create a new property.</p>
-                <a href="/propertyForm">Create Property</a>
+              <p>No properties found.</p>
+              <p>Please create a new property.</p>
+              <a href="/propertyForm">Create Property</a>
             </li>
-        </ul>
+          </ul>
+        </div>
       </div>
-    </div>
-            </>
+    </>
   );
 };
 

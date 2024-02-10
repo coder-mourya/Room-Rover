@@ -8,6 +8,7 @@ import PropertyForm from "./components/PropertyForm"
 import Dashboard from './components/Dashboard';
 import PropertyDetails from './components/PropertyDetails';
 import Footer from './components/Footer';
+import About from './components/About';
 
 
 
@@ -42,6 +43,7 @@ function App() {
         <Route exact path="/PropertyForm" element ={<PropertyForm/>} />    
         <Route exact path='/Dashboard' element={<Dashboard />} />
         <Route exact path='/PropertyDetails'  element={<PropertyDetails  propertyId={propertyId} />} />
+        <Route exact path='/About'  element={<About/>} />
       </Routes>
     </BrowserRouter>
     <Footer/>

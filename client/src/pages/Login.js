@@ -11,9 +11,13 @@ const LoginPage = () => {
 
 
     try {
-    await axios.post("http://localhost:5000/auth/login", {email, password, role});
+     const response = await axios.post("http://localhost:5000/auth/login", {email, password, role});
 
-    console.log("Login successfull" , Response.data);
+    console.log("Login successfull" , response.data);
+
+    const {token} = response.data;
+
+    localStorage.setItem('token', token)
       
     if(role === 'owner'){
 
@@ -23,6 +27,7 @@ const LoginPage = () => {
     }
       
     } catch (error) {
+      window.alert("invalid details")
       console.log(error);
     }
    

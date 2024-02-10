@@ -54,7 +54,7 @@ if(!passwordMatch){
 
 const token = jwt.sign({email: user.email, role: User.role},
   'secrete-key',
-  {expiresIn: "1h"}
+  {expiresIn: '10s'}
   
   );
 

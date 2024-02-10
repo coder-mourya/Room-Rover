@@ -13,8 +13,13 @@ const RegisterPage = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/auth/register", { username, password, email, number, role });
+   const response =   await axios.post("http://localhost:5000/auth/register", { username, password, email, number, role });
       console.log("Registeration successfull")
+
+
+      const {token} = response.data;
+
+      localStorage.setItem('token' , token)
 
       if(role === 'owner'){
         window.location.href = '/dashboard'

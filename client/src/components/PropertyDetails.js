@@ -34,6 +34,7 @@ const PropertyDetails = ({ propertyId }) => {
           <p>Owner Name :- {Property.owner}</p>
           <p>Owner Numbers:-{Property.number} </p>
           <p>Titile :- {Property.title}</p>
+          
         </div>
       ))}
     </div>
