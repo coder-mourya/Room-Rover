@@ -6,7 +6,7 @@ Welcome to Room Rover! 🏡 This is an ongoing project aimed at simplifying the 
 
 🚧 **Work in Progress:** The project is actively under development, and new features are being added to enhance your experience.
 
-## Key Features (coming soon)
+## Key Features 
 
 - **Intuitive Room Search:** Effortlessly browse available rooms in various cities.
 - **User Authentication:** Secure login and registration functionality for property owners and tenants.
@@ -17,7 +17,7 @@ Welcome to Room Rover! 🏡 This is an ongoing project aimed at simplifying the 
 - Frontend: React
 - Backend: Node.js
 - Database: MongoDB
-- User Authentication: Passport.js
+- User Authentication: jwt token
 - API Architecture: RESTful
 
 ## How to Contribute
