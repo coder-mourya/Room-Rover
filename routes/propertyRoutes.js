@@ -20,7 +20,7 @@ const upload = multer({storage: storage});
 
 router.get('/', propertyController.getAllProperties);
 
-router.get('/owner',    propertyController.getPropertyByOwner);
+router.get('/owner',  authMidleWare,  propertyController.getPropertyByOwner);
 
 router.delete('/properties/:id', propertyController.deletePropertyById);
 

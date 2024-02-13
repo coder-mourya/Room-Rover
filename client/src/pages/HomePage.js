@@ -5,16 +5,15 @@ import authUtils from "../utils/auth";
 import axios from 'axios';
 import "./style.css";
 
-const HomePage = ({ searchLocation, getUser }) => {
+const HomePage = ({ searchLocation, getUser, theme }) => {
 
   const [properties, setProperties] = useState([]);
 
   const [getId, setId] = useState("");// for pass data to property details compo using props
+  const [UserName, setUserName] = useState(''); // for getting current  loggedIn user name from Api 
 
   const navigate = useNavigate();  // for navigate propertyDetsial compo
   
-
- 
 
 
   useEffect(() => {
@@ -29,9 +28,9 @@ const HomePage = ({ searchLocation, getUser }) => {
 
 
         const response = await axios.get(url)
-        console.log("recieved in home :", searchLocation);
+        
 
-        setProperties(response.data.data || []);
+        setProperties(response.data.data);
 
       } catch (error) {
         console.log(error);
@@ -41,6 +40,37 @@ const HomePage = ({ searchLocation, getUser }) => {
 
 
     fetchData();
+
+
+    const fetchUserName = async () => {
+      try {
+
+        
+
+        const token = localStorage.getItem('token')
+        
+        
+        
+        const response = await axios.get(`http://localhost:5000/auth/users`,{
+          headers: { Authorization: `Bearer ${token}` }
+        
+        });
+
+      
+    
+        const {data} = response.data;
+
+        setUserName(data.username);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    
+
+    if(authUtils.isLoggedIn()){
+
+      fetchUserName();
+    }
 
 
   }, [searchLocation]);
@@ -69,8 +99,16 @@ const HomePage = ({ searchLocation, getUser }) => {
 
 
   return (
-    <div className="container mt-4">
-      <h2 className="mb-4">Available Properties</h2>
+    <div className={`container mt-4  ${theme === 'dark' ? 'text-light' : ''}`}>
+      
+      <div className='container'>
+        <p>Hey , Its a test version of this app !! if you face any difficulties just relogin or <b>login as test@gmail.com password : test1234</b></p>
+      </div>
+
+        <h2 className='text-light'> Welcome , {UserName}</h2>
+      
+
+      <h2 className="mb-4 text-light">Available Properties</h2>
       <div className="row">
 
 

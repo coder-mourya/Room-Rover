@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import "./style.css";
 import axios from 'axios';
+import Alerts from '../components/Alerts';
+
 
 const RegisterPage = () => {
   const [username, setName] = useState('');
@@ -8,6 +10,9 @@ const RegisterPage = () => {
   const [password, setPassword] = useState('');
   const [number, setNumber] = useState('');
   const [role, setRole] = useState('tenant')
+  const [alertMessage, setAlertMessage] = useState('')
+  const [alertType, setAlertType] = useState('');
+
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -15,7 +20,8 @@ const RegisterPage = () => {
     try {
    const response =   await axios.post("http://localhost:5000/auth/register", { username, password, email, number, role });
       console.log("Registeration successfull")
-
+      setAlertMessage("Registeration successfull")
+      setAlertType("sucessful")
 
       const {token} = response.data;
 
@@ -29,7 +35,10 @@ const RegisterPage = () => {
 
     } catch (error) {
       console.log(error);
+      setAlertMessage("invalid details")
+      setAlertType("error");
     }
+
 
     console.log('Name:', username);
     console.log('Email:', email);
@@ -41,10 +50,11 @@ const RegisterPage = () => {
     <div className="container mt-4 d-flex justify-content-center">
       <div className='custom-style'>
 
-        <h2>Register</h2>
+      {alertMessage && <Alerts  message={alertMessage} type={alertType}/>}
+        <h2 className='text-light'>Register</h2>
         <form onSubmit={handleRegister}>
           <div className="form-group">
-            <label>Name</label>
+            <label className='text-light'>Name</label>
             <input
               type="text"
               className="form-control"
@@ -56,7 +66,7 @@ const RegisterPage = () => {
           </div>
 
           <div className="form-grup">
-            <label> Mobile number</label>
+            <label className='text-light'> Mobile number</label>
             <input
               type="number"
               className="form-control"
@@ -67,7 +77,7 @@ const RegisterPage = () => {
           </div>
 
           <div className="form-group">
-            <label>Email address</label>
+            <label className='text-light'>Email address</label>
             <input
               type="email"
               className="form-control"
@@ -79,7 +89,7 @@ const RegisterPage = () => {
           </div>
 
           <div className="form-group">
-            <label>Password</label>
+            <label className='text-light'>Password</label>
             <input
               type="password"
               className="form-control"
@@ -91,7 +101,7 @@ const RegisterPage = () => {
           </div>
 
           <div className='form-grup'>
-            <label> Role</label>
+            <label className='text-light'> Role</label>
 
             <select className='form-control' value={role} onChange={(e) => setRole(e.target.value)}>
               <option value="tanant"> Tanant </option>
@@ -104,8 +114,15 @@ const RegisterPage = () => {
             Register
           </button>
 
-          <p className='mt-4'>Already have an account? <a href="/login">Login</a></p>
+          
+
+          <p className='mt-4 text-light'>Already have an account? <a href="/login">Login</a></p>
+          
         </form>
+
+        {alertMessage &&(
+        <Alerts message={alertMessage} type={alertType} />
+      )}
       </div>
     </div>
   );

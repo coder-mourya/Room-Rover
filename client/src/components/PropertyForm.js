@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import "../pages/style.css"
 import axios from 'axios';
+import Alerts from './Alerts';
+
+
 const PropertyForm = () => {
   const [propertyData, setPropertyData] = useState({
     owner: '',
@@ -11,6 +14,9 @@ const PropertyForm = () => {
     price: '',
     image: '',
   });
+
+  const [alertMessage, setAlertMessage]   = useState("");
+  const [alertType, setAlertType]         = useState('') 
 
   const handleUpload = async (e) => {
     e.preventDefault();
@@ -33,9 +39,15 @@ const PropertyForm = () => {
       });
       console.log("proprty data : ", propertyData)
 
+      setAlertMessage("Property uploaded Successfully")
+      setAlertType("Success");
+
       window.location.href = './dashboard'
     } catch (error) {
       console.log(error);
+
+      setAlertMessage("Invalid details. Please try again.");
+      setAlertType("error");
     }
   };
 
@@ -44,6 +56,7 @@ const PropertyForm = () => {
       <div className='custom-style'>
 
       <h2>Upload Property</h2>
+      {alertMessage && <Alerts message={alertMessage} type={alertType} />}
       <form action='upload' onSubmit={handleUpload} className="container mt-4">
       <div className="form-group">
           <label>Owner</label>
@@ -131,6 +144,12 @@ const PropertyForm = () => {
           Upload Property
         </button>
       </form>
+
+      {alertMessage &&(
+        <Alerts message={alertMessage} type={alertType} />
+      )
+
+      }
     </div>
             </div>
   );

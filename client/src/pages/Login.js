@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import "./style.css"
 import axios from 'axios';
+import Alerts from '../components/Alerts';
+
+
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('tanant');
+  const [alertMessage ,  setAlertMessage] = useState('')
+  const [alertType, setAlertType] = useState('')
 
   const handleLogin = async (e) => {  
     e.preventDefault();
@@ -18,6 +23,9 @@ const LoginPage = () => {
     const {token} = response.data;
 
     localStorage.setItem('token', token)
+
+    setAlertMessage("login successfully")
+    setAlertType("success")
       
     if(role === 'owner'){
 
@@ -27,7 +35,9 @@ const LoginPage = () => {
     }
       
     } catch (error) {
-      window.alert("invalid details")
+      setAlertMessage("Invalid details. Please try again.");
+      setAlertType("error");
+     
       console.log(error);
     }
    
@@ -40,10 +50,13 @@ const LoginPage = () => {
   return (
     <div className="container d-flex justify-content-center mt-4 ">
       <div className='custom-style'>
-      <h2>Login</h2>
+      <h2 className='text-light'>Login</h2>
       <form onSubmit={handleLogin}>
+
+      {alertMessage && <Alerts message={alertMessage} type={alertType} />} 
+      
         <div className="form-group">
-          <label>Email address</label>
+          <label className='text-light'>Email address</label>
           <input
             type="email"
             className="form-control"
@@ -55,7 +68,7 @@ const LoginPage = () => {
         </div>
 
         <div className="form-group">
-          <label>Password</label>
+          <label className='text-light'>Password</label>
           <input
             type="password"
             className="form-control"
@@ -67,7 +80,7 @@ const LoginPage = () => {
         </div>
 
       <div className='form-grup'>
-            <label> Role</label>
+            <label className='text-light'> Role</label>
 
             <select className='form-control' value={role} onChange={(e) => setRole(e.target.value)}>
               <option value="tanant"> Tanant </option>
@@ -80,8 +93,14 @@ const LoginPage = () => {
           Login
         </button>
 
-        <p className='mt-4'>Don't have an account? <a href="/register">Register</a></p>
+        <p className='mt-4 text-light'>Don't have an account? <a href="/register">Register</a></p>
       </form>
+
+      {alertMessage &&(
+        <Alerts message={alertMessage} type={alertType} />
+      )
+
+      }
       </div>
     </div>
   );

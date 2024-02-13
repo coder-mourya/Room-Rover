@@ -53,8 +53,8 @@ if(!passwordMatch){
 //for genrate jwt token 
 
 const token = jwt.sign({email: user.email, role: User.role},
-  'secrete-key',
-  {expiresIn: '10s'}
+  process.env.JWT_SECRET,
+  {expiresIn: '1h'}
   
   );
 
@@ -77,12 +77,49 @@ const getDetails = async ( req, res) => {
             res.status(201).json({success: true , data : userDetails  })
          } catch (error) {
             console.log("failed to get user details" , error);
+            res.status(500).json({ success: false, error: "Failed to get user details" });
          }
 }
+
+
+const getUserDetails = async (req, res) => {
+  console.log("request recieved for user details by id");
+
+  try {
+    
+    const token = req.headers.authorization.split(' ')[1];
+
+    
+    // Verify the token and extract user ID
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+
+    const userEmail = decodedToken.email;
+    
+    // Find the user based on the decoded token
+    const user = await User.findOne({email : userEmail});
+
+    
+    if(!user){
+      return res.status(404).json({success : false, error: 'user not exist '})
+    }
+   
+
+
+    // Return the user details
+    res.status(200).json({ success: true, data: user });
+    
+  } catch (error) {
+    console.error('Authentication error:', error);
+    res.status(401).json({ success: false, error: 'Unauthorized', message: error.message });
+  }
+};
+
+
 
 module.exports = {
   
   registerUser,
   userlogin,
   getDetails,
+  getUserDetails,
 };

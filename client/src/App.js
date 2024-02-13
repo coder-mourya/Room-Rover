@@ -20,11 +20,12 @@ function App() {
   const [searchLocation, setSearchLocation] = useState('');
   const [propertyId, setPropertyId] = useState('');
 
-  const handleSearch = (location) =>{
+  const handleSearch = (location) =>{  // for recieving location enter by user as prop
     console.log('Search location received in App:', location);
     setSearchLocation(location)
   }
- const handleUser = (propertyId) =>{
+
+ const handleUser = (propertyId) =>{   // recieving proprty id as prop
 
    console.log("recieved in app" , propertyId);
   setPropertyId(propertyId);
