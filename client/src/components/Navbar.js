@@ -4,13 +4,14 @@ import "./navbar.css"
 import authUtils from '../utils/auth'; // for importing authUilts
 
 
+
 const Navbar = ({ onSearch }) => {
   const [searchLocation, setSearchLocation] = useState("");
   const [theme, setTheme] = useState('');
-
+  const [userRole, setUserRole] = useState('');
 
   useEffect(() => {
-
+    setUserRole(authUtils.getUserRole()); // get the user role 
     document.body.style.backgroundColor = 'background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(45,253,29,1) 65%, rgba(252,176,69,1) 96%);'
   }, []);
 
@@ -20,26 +21,41 @@ const Navbar = ({ onSearch }) => {
   }
 
 
-  const handleLogout = () => {
-    authUtils.logout(); // Call logout function from 
+  // manual logout
+  const logoutWithApi = () => {
 
+    authUtils.logout()
+  }
+
+  // ggoglle logout
+  const logoutGoogle = () => {
+
+    authUtils.googleLogout();
+  }
+
+  const handleLogout = () => {
+
+    logoutWithApi();
+    logoutGoogle();
 
   }
 
   const handleUploadProprty = () => {
 
-    if (!authUtils.isLoggedIn()) {
-
-      alert("you need to login first");
-
-      window.location.href = "./login"
-
-    } else {
+    if (userRole === 'owner') {
       window.location.href = "./PropertyForm";
-
+    } else {
+      alert("you are not owner you have to regsiter as a owner")
+      window.location.href = "./Register";
     }
   }
 
+
+
+  const handleDashboard = () => {
+    window.location.href = "./Dashboard";
+
+  }
 
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
@@ -82,6 +98,14 @@ const Navbar = ({ onSearch }) => {
           <li className="nav-item">
             <button className='nav-link' onClick={handleUploadProprty}>Upload</button>
           </li>
+
+
+          {userRole === 'owner' && (
+            <li className="nav-item">
+              <button className='nav-link' onClick={handleDashboard}  >Dashboard</button>
+            </li>
+          )}
+
         </ul>
 
 
@@ -92,7 +116,7 @@ const Navbar = ({ onSearch }) => {
             <button className='nav-link' onClick={toggleTheme}> {toggleButtonText()} </button>
           </li>
 
-          {authUtils.isLoggedIn() ? (
+          {authUtils.isLoggedIn()  || authUtils.isAuthanticateddGoogle()? (
             <li className='nav-item'>
               <button className='nav-link' onClick={handleLogout}>Logout</button>
             </li>
@@ -104,6 +128,8 @@ const Navbar = ({ onSearch }) => {
               <li className='nav-item'>
                 <a href="/Register" className='nav-link'>Register</a>
               </li>
+
+
             </>
           )}
 

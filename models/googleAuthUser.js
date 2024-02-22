@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema({
    username: {
       type: String,
       required: true,
-      
+
    },
     
    email: {
@@ -13,10 +13,6 @@ const userSchema = new mongoose.Schema({
    },
 
    
-   password: {
-      type: String,
-      required: true
-   },
 
    role: {
       type: String,
@@ -26,7 +22,7 @@ const userSchema = new mongoose.Schema({
 });
 
 
-const User = mongoose.model('User', userSchema);
+const GoogleAuthUser = mongoose.model('GoogleAuthUser', userSchema);
 
-module.exports = User;
+module.exports = GoogleAuthUser;
 

@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const propertySchema = new mongoose.Schema({
+
+  email: {
+    type: String,
+    required: true,
+  },
   owner: {
     type: String,
     required: true,
@@ -33,8 +38,8 @@ const propertySchema = new mongoose.Schema({
     required: true,
     min: 0,
   },
-  image: {
-    type: String,
+  images: {
+    type: [String],
     required: true,
   }
 });

@@ -11,7 +11,7 @@ const footer = () =>{
 
            <ul>
             <li className="mx-5"><a href="./About">About</a></li>
-            <li className="mx-5">Contact us</li>
+            <li className="mx-5"><a href="./ContactForm">contact us</a></li>
            </ul>
 
         </div>

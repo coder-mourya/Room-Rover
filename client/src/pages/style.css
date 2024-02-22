@@ -1,9 +1,25 @@
 .custom-style{
     width: 50%;
+    background-color:  rgb(56, 56, 62);
+    border-radius: 6px;
 }
+
+.adjustWith{
+    width: 90%;
+}
+
+
 
 .custom-btn  a{
 
     color: white;
     text-decoration:  none;
+}
+
+.card{
+    box-shadow: -3px 2px 3px 3px rgb(97, 96, 96);
+}
+
+.card:hover{
+   opacity: 0.5;
 }

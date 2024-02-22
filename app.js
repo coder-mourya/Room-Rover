@@ -7,6 +7,7 @@ const connectToDatabase = require('./Config/database');
 const User = require('./models/user');
 const propertyRoutes = require('./routes/propertyRoutes');
 const userRoutes = require('./routes/userRoutes');
+const contact = require("./routes/contact")
 
 
 const app = express();
@@ -30,8 +31,11 @@ app.get("/", (req, res) =>{
 
 app.use('/uploads' , express.static('uploads'));// this path for serve image to the front end 
 
+
 // Use user routes
 app.use('/auth', userRoutes);
+
+app.use('/contact' ,  contact)
 
 
 const start = async() =>{

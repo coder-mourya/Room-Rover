@@ -9,7 +9,7 @@ import Dashboard from './components/Dashboard';
 import PropertyDetails from './components/PropertyDetails';
 import Footer from './components/Footer';
 import About from './components/About';
-
+import ContactForm from "./components/Contact";
 
 
 
@@ -45,6 +45,7 @@ function App() {
         <Route exact path='/Dashboard' element={<Dashboard />} />
         <Route exact path='/PropertyDetails'  element={<PropertyDetails  propertyId={propertyId} />} />
         <Route exact path='/About'  element={<About/>} />
+        <Route exact path='/ContactForm' element={<ContactForm/>} />
       </Routes>
     </BrowserRouter>
     <Footer/>

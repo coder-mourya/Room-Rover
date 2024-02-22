@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import "./style.css"
 import axios from 'axios';
 import Alerts from '../components/Alerts';
+import { GoogleLogin } from '@react-oauth/google';
+import {jwtDecode} from "jwt-decode"
 
 
 const LoginPage = () => {
@@ -11,6 +13,9 @@ const LoginPage = () => {
   const [alertMessage ,  setAlertMessage] = useState('')
   const [alertType, setAlertType] = useState('')
 
+
+
+  // Manual login
   const handleLogin = async (e) => {  
     e.preventDefault();
 
@@ -23,6 +28,7 @@ const LoginPage = () => {
     const {token} = response.data;
 
     localStorage.setItem('token', token)
+    localStorage.setItem('role', role);
 
     setAlertMessage("login successfully")
     setAlertType("success")
@@ -45,17 +51,57 @@ const LoginPage = () => {
     console.log('Password:', password);
   };
 
+
+
+  // login with google 
+  const handleLoginWithGoogle = async (credentialResponse) =>{
+
+    try {
+      const decodedToken = jwtDecode(credentialResponse?.credential);
+
+      const response = await axios.post("http://localhost:5000/auth/google/login", {
+        email : decodedToken.email,
+        role : role
+      });
+
+      console.log("Login successfull" , response.data);
+  
+      
+      const {googleProfile} = response.data;
+
+  
+      localStorage.setItem('googleProfile', googleProfile)
+      localStorage.setItem('role', role);
+  
+      setAlertMessage("login successfully")
+      setAlertType("success")
+        
+      if(role === 'owner'){
+  
+        window.location.href ='/dashboard';
+      }else{
+        window.location.href = '/';
+      }
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
  
 
   return (
-    <div className="container d-flex justify-content-center mt-4 ">
-      <div className='custom-style'>
+
+    <div className="container d-flex justify-content-center mt-4  ">
+      <div className='custom-style container  d-flex justify-content-center'>
+      <div className='adjustWith my-4'>
+          
       <h2 className='text-light'>Login</h2>
       <form onSubmit={handleLogin}>
 
-      {alertMessage && <Alerts message={alertMessage} type={alertType} />} 
       
-        <div className="form-group">
+      
+        <div className="form-group my-2">
           <label className='text-light'>Email address</label>
           <input
             type="email"
@@ -67,7 +113,7 @@ const LoginPage = () => {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group my-2">
           <label className='text-light'>Password</label>
           <input
             type="password"
@@ -79,7 +125,7 @@ const LoginPage = () => {
           />
         </div>
 
-      <div className='form-grup'>
+      <div className='form-grup my-2'>
             <label className='text-light'> Role</label>
 
             <select className='form-control' value={role} onChange={(e) => setRole(e.target.value)}>
@@ -88,6 +134,16 @@ const LoginPage = () => {
             </select>
 
           </div>
+
+          <GoogleLogin
+              onSuccess={handleLoginWithGoogle}
+
+              onError={() => {
+                console.log('Login Failed');
+              }}
+            />
+
+
 
         <button type="submit" className="btn btn-primary mt-4">
           Login
@@ -101,6 +157,7 @@ const LoginPage = () => {
       )
 
       }
+      </div>
       </div>
     </div>
   );

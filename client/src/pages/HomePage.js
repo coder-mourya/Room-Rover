@@ -13,7 +13,7 @@ const HomePage = ({ searchLocation, getUser, theme }) => {
   const [UserName, setUserName] = useState(''); // for getting current  loggedIn user name from Api 
 
   const navigate = useNavigate();  // for navigate propertyDetsial compo
-  
+
 
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const HomePage = ({ searchLocation, getUser, theme }) => {
 
 
         const response = await axios.get(url)
-        
+
 
         setProperties(response.data.data);
 
@@ -43,34 +43,40 @@ const HomePage = ({ searchLocation, getUser, theme }) => {
 
 
     const fetchUserName = async () => {
+
       try {
+        if (authUtils.isLoggedIn()) {
+          const token = localStorage.getItem('token')
+          const response = await axios.get("http://localhost:5000/auth/users", {
 
-        
+            headers: { Authorization: `Bearer ${token}` }
+          });
 
-        const token = localStorage.getItem('token')
-        
-        
-        
-        const response = await axios.get(`http://localhost:5000/auth/users`,{
-          headers: { Authorization: `Bearer ${token}` }
-        
-        });
+          const { data } = response.data
+          setUserName(data.username)
+        } else if (authUtils.isAuthanticateddGoogle()) {
 
-      
-    
-        const {data} = response.data;
+          const googleProfile = localStorage.getItem('googleProfile')
 
-        setUserName(data.username);
+          const response = await axios.get('http://localhost:5000/auth/getUserDetailsWithGoogle', {
+            headers: { Authorization: `Bearer ${googleProfile}` }
+          })
+
+          const { data } = response.data;
+
+          setUserName(data.username)
+        }
+
+
       } catch (error) {
         console.log(error);
       }
-    }
-    
 
-    if(authUtils.isLoggedIn()){
 
-      fetchUserName();
     }
+
+    fetchUserName();
+
 
 
   }, [searchLocation]);
@@ -85,14 +91,14 @@ const HomePage = ({ searchLocation, getUser, theme }) => {
     console.log("View details clicked for property ID:", getId, propertyId);
 
 
-// for checking user logged in or logout
-    if (!authUtils.isLoggedIn()) {
+    // for checking user logged in or logout
+    if (authUtils.isLoggedIn() || authUtils.isAuthanticateddGoogle()) {
+
+      navigate("./PropertyDetails")
+    } else {
 
       alert("You need to login first");
       navigate("./login")
-    } else {
-      navigate("./PropertyDetails")
-
     }
 
   }
@@ -100,13 +106,13 @@ const HomePage = ({ searchLocation, getUser, theme }) => {
 
   return (
     <div className={`container mt-4  ${theme === 'dark' ? 'text-light' : ''}`}>
-      
+
       <div className='container'>
         <p>Hey , Its a test version of this app !! if you face any difficulties just relogin or <b>login as test@gmail.com password : test1234</b></p>
       </div>
 
-        <h2 className='text-light'> Welcome , {UserName}</h2>
-      
+      <h2 className='text-light'> Welcome , {UserName}</h2>
+
 
       <h2 className="mb-4 text-light">Available Properties</h2>
       <div className="row">
@@ -114,9 +120,21 @@ const HomePage = ({ searchLocation, getUser, theme }) => {
 
         {properties.map((property) => (
           <div key={property._id} className="col-lg-4 col-md-6 mb-4">
+
             <div className="card">
 
-              <img className="card-img-top" src={`http://localhost:5000/${property.image}`} alt="Property" />
+
+              <div className="card-image-container">
+                {property.images.map((image, index) => (
+                  <img
+                    key={index}
+                    className="card-img-top"
+                    src={`http://localhost:5000/${image}`}
+                    alt={`Property `}
+                  />
+                ))}
+              </div>
+
               <div className="card-body">
                 <h5 className="card-title">{property.title}</h5>
                 <p className="card-text">
