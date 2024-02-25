@@ -4,6 +4,8 @@ import axios from 'axios';
 import Alerts from '../components/Alerts';
 import { GoogleLogin } from '@react-oauth/google';
 import {jwtDecode} from "jwt-decode"
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 const LoginPage = () => {
@@ -14,7 +16,7 @@ const LoginPage = () => {
   const [alertType, setAlertType] = useState('')
 
 
-
+const navigate = useNavigate()
   // Manual login
   const handleLogin = async (e) => {  
     e.preventDefault();
@@ -35,9 +37,10 @@ const LoginPage = () => {
       
     if(role === 'owner'){
 
-      window.location.href ='/dashboard';
+      
+      navigate("/dashboard")
     }else{
-      window.location.href = '/';
+      navigate("/")
     }
       
     } catch (error) {
@@ -78,9 +81,12 @@ const LoginPage = () => {
         
       if(role === 'owner'){
   
-        window.location.href ='/dashboard';
+        
+      navigate("/dashboard")
+
+
       }else{
-        window.location.href = '/';
+        navigate("/")
       }
       
     } catch (error) {
@@ -149,7 +155,7 @@ const LoginPage = () => {
           Login
         </button>
 
-        <p className='mt-4 text-light'>Don't have an account? <a href="/register">Register</a></p>
+        <p className='mt-4 text-light'>Don't have an account? <Link to="/Register">Register</Link></p>
       </form>
 
       {alertMessage &&(

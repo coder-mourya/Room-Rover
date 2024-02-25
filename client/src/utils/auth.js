@@ -1,5 +1,7 @@
 
 
+
+
   const isLoggedIn = () => {
         const token = localStorage.getItem('token');
         return !!token;
@@ -41,13 +43,16 @@
         localStorage.removeItem('role')
 
         console.log("token removed")
-        window.location.href = "./login"
+       
+        
     }
 
     const googleLogout = () =>{
         localStorage.removeItem('googleProfile')
         localStorage.removeItem('role')
-        window.location.href = "./login"
+        
+       
+        
     }
     
 

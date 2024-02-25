@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import logo from "./logo.jpg"
 import "./navbar.css"
 import authUtils from '../utils/auth'; // for importing authUilts
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 
 
@@ -9,6 +12,8 @@ const Navbar = ({ onSearch }) => {
   const [searchLocation, setSearchLocation] = useState("");
   const [theme, setTheme] = useState('');
   const [userRole, setUserRole] = useState('');
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     setUserRole(authUtils.getUserRole()); // get the user role 
@@ -38,22 +43,24 @@ const Navbar = ({ onSearch }) => {
     logoutWithApi();
     logoutGoogle();
 
+    navigate('/login')
+
   }
 
   const handleUploadProprty = () => {
 
     if (userRole === 'owner') {
-      window.location.href = "./PropertyForm";
+      navigate("/PropertyForm")
     } else {
       alert("you are not owner you have to regsiter as a owner")
-      window.location.href = "./Register";
+       navigate("/Register")
     }
   }
 
 
 
   const handleDashboard = () => {
-    window.location.href = "./Dashboard";
+    navigate('/Dashboard')
 
   }
 
@@ -75,10 +82,12 @@ const Navbar = ({ onSearch }) => {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a className="navbar-brand" href="/">
+      
+        <Link to="/" className='navbar-brand'>
         <img src={logo} alt="Logo" className="logo mx-4" />
         Room Rover
-      </a>
+        </Link>
+      
       <button
         className="navbar-toggler"
         type="button"
@@ -93,7 +102,8 @@ const Navbar = ({ onSearch }) => {
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-            <a href="/" className="nav-link">Home</a>
+            
+            <Link to="/" className='nav-link'>Home</Link>
           </li>
           <li className="nav-item">
             <button className='nav-link' onClick={handleUploadProprty}>Upload</button>
@@ -116,17 +126,21 @@ const Navbar = ({ onSearch }) => {
             <button className='nav-link' onClick={toggleTheme}> {toggleButtonText()} </button>
           </li>
 
-          {authUtils.isLoggedIn()  || authUtils.isAuthanticateddGoogle()? (
+          {authUtils.isLoggedIn() || authUtils.isAuthanticateddGoogle() ? (
             <li className='nav-item'>
               <button className='nav-link' onClick={handleLogout}>Logout</button>
             </li>
           ) : (
             <>
               <li className='nav-item'>
-                <a href="/Login" className='nav-link'>Login</a>
+
+                <Link to="/Login" className='nav-link'>Login</Link>
+
               </li>
               <li className='nav-item'>
-                <a href="/Register" className='nav-link'>Register</a>
+
+                <Link to="/Register" className='nav-link'>Register</Link>
+
               </li>
 
 

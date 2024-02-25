@@ -1,5 +1,6 @@
 import React, {useState}from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+
 import Navbar  from './components/Navbar';
 import HomePage from './pages/HomePage'
 import Login from "./pages/Login";
@@ -34,7 +35,7 @@ function App() {
   return (
     <>
     <Navbar  onSearch={handleSearch} />
-    <BrowserRouter>
+
     
       <Routes>
       <Route exact path="/" element={<HomePage searchLocation={searchLocation} getUser={handleUser} />} />
@@ -47,7 +48,7 @@ function App() {
         <Route exact path='/About'  element={<About/>} />
         <Route exact path='/ContactForm' element={<ContactForm/>} />
       </Routes>
-    </BrowserRouter>
+   
     <Footer/>
     </>
   );

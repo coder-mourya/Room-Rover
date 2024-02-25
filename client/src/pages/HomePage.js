@@ -98,7 +98,7 @@ const HomePage = ({ searchLocation, getUser, theme }) => {
     } else {
 
       alert("You need to login first");
-      navigate("./login")
+      navigate("/login")
     }
 
   }

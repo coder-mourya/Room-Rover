@@ -4,7 +4,7 @@ const cors = require('cors');
 const bodyParser = require("body-parser")
 const connectToDatabase = require('./Config/database');
 //const path = require('path');
-const User = require('./models/user');
+//const User = require('./models/user');
 const propertyRoutes = require('./routes/propertyRoutes');
 const userRoutes = require('./routes/userRoutes');
 const contact = require("./routes/contact")
@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 5000;
 
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://65db8551c560641407ba2c98--graceful-torte-862aa7.netlify.app',
   credentials: true
 }));
 

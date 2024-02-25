@@ -1,5 +1,7 @@
 import React from "react";
 import "./footer.css";
+import { Link } from "react-router-dom";
+
 
 const footer = () =>{
 
@@ -10,8 +12,10 @@ const footer = () =>{
             <p>&copy; Room-River 2024</p>
 
            <ul>
-            <li className="mx-5"><a href="./About">About</a></li>
-            <li className="mx-5"><a href="./ContactForm">contact us</a></li>
+           <li className="mx-5"><Link to="./About">About</Link></li>
+            
+            <li className="mx-5"><Link to="./ContactForm">Contact us</Link></li>
+            
            </ul>
 
         </div>

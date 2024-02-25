@@ -4,7 +4,8 @@ import axios from 'axios';
 import Alerts from '../components/Alerts';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
-
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
   const [username, setName] = useState('');
@@ -15,15 +16,16 @@ const RegisterPage = () => {
   const [alertType, setAlertType] = useState('');
 
 
+  const navigate = useNavigate();
 
-// Register with manual 
+  // Register with manual 
   const handleRegister = async (e) => {
     e.preventDefault();
 
 
 
     try {
-      const response = await axios.post("http://localhost:5000/auth/register", { username, password, email,  role });
+      const response = await axios.post("http://localhost:5000/auth/register", { username, password, email, role });
       console.log("Registeration successfull")
       setAlertMessage("Registeration successfull")
       setAlertType("sucessful")
@@ -35,9 +37,10 @@ const RegisterPage = () => {
 
 
       if (role === 'owner') {
-        window.location.href = '/dashboard'
+
+        navigate('/Dashboard')
       } else {
-        window.location.href = '/'
+        navigate('/')
       }
 
     } catch (error) {
@@ -50,23 +53,23 @@ const RegisterPage = () => {
     console.log('Name:', username);
     console.log('Email:', email);
     console.log('Password:', password);
-    
+
   };
 
 
   // Register with google 
-  const handleRegisterWithGoogle = async (credentialResponse) =>{
+  const handleRegisterWithGoogle = async (credentialResponse) => {
 
     try {
-     
+
       const decodedToken = jwtDecode(credentialResponse?.credential);
 
-     
 
-      const response = await axios.post("http://localhost:5000/auth/google/register",{
-        username : decodedToken.name,
-        
-        email : decodedToken.email,
+
+      const response = await axios.post("http://localhost:5000/auth/google/register", {
+        username: decodedToken.name,
+
+        email: decodedToken.email,
         role,
       });
 
@@ -74,15 +77,18 @@ const RegisterPage = () => {
       const { googleProfile } = response.data;
       localStorage.setItem('googleProfile', googleProfile);
       localStorage.setItem('role', role);
-      
-      
 
-      
+
+
+
+
       if (role === 'owner') {
-        window.location.href = '/dashboard'
+
+        navigate('/Dashboard')
       } else {
-        window.location.href = '/'
+        navigate('/')
       }
+
     } catch (error) {
       console.log(error);
     }
@@ -97,7 +103,7 @@ const RegisterPage = () => {
         <div className='adjustWith my-4'>
           {alertMessage && <Alerts message={alertMessage} type={alertType} />}
           <h2 className='text-light'>Register</h2>
-          
+
           <form onSubmit={handleRegister}>
             <div className="form-group my-2">
               <label className='text-light'>Name</label>
@@ -111,7 +117,7 @@ const RegisterPage = () => {
               />
             </div>
 
-           
+
 
             <div className="form-group my-2">
               <label className='text-light'>Email address</label>
@@ -164,7 +170,7 @@ const RegisterPage = () => {
 
 
 
-            <p className='mt-4 text-light'>Already have an account? <a href="/login">Login</a></p>
+            <p className='mt-4 text-light'>Already have an account? <Link to="/login">Login</Link></p>
 
           </form>
 
