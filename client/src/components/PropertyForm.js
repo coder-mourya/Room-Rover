@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import "../pages/style.css"
 import axios from 'axios';
 import Alerts from './Alerts';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -13,11 +14,20 @@ const PropertyForm = () => {
     description: '',
     location: '',
     price: '',
-    images: '',
+    images: [],
   });
 
   const [alertMessage, setAlertMessage] = useState("");
   const [alertType, setAlertType] = useState('')
+
+const navigate = useNavigate();
+
+
+const handleFilechange = (e) => {
+  const selectedFile = Array.from(e.target.files);
+
+  setPropertyData({...propertyData, images: [...propertyData.images, ...selectedFile]})
+}
 
   const handleUpload = async (e) => {
     e.preventDefault();
@@ -46,7 +56,7 @@ const PropertyForm = () => {
 
 
 
-      await axios.post('http://localhost:5000/properties/create', formData, {
+      await axios.post('https://room-rover-deploy.onrender.com/properties/create', formData, {
         headers: {
           "Content-Type": 'multipart/form-data',
 
@@ -54,12 +64,15 @@ const PropertyForm = () => {
         },
 
       });
-      console.log("proprty data : ", propertyData)
-
+      
       setAlertMessage("Property uploaded Successfully")
       setAlertType("Success");
+      
+      console.log("proprty data : ", propertyData)
+      
 
-      window.location.href = './dashboard'
+      navigate('/dashboard')
+      
     } catch (error) {
       console.log(error);
 
@@ -68,13 +81,16 @@ const PropertyForm = () => {
     }
   };
 
+
+  
+
   return (
     <div className="container mt-4 d-flex justify-content-center">
       <div className='custom-style container my-2 d-flex justify-content-center'>
         <div className='adjustWith my-4'>
 
           <h2 className='text-light'>Upload Property</h2>
-          {alertMessage && <Alerts message={alertMessage} type={alertType} />}
+          
           <form action='upload' onSubmit={handleUpload} className="container mt-4">
             <div className="form-group my-2">
               <label className='text-light'>Owner</label>
@@ -153,10 +169,21 @@ const PropertyForm = () => {
                 type="file"
 
                 className="form-control"
-                onChange={(e) => setPropertyData({ ...propertyData, images: e.target.files })}
+                onChange={handleFilechange}
                 multiple
                 required
               />
+
+              {propertyData.images.length > 0 &&  (
+                 <div>
+                  <p>selected file:</p>
+                  <ul>
+                    {propertyData.images.map((file, index) => (
+                      <li key={index}> {file.name}</li>
+                    ))}
+                  </ul>
+                 </div>
+              )}
             </div>
 
             <button type="submit" className="btn btn-primary mt-4">

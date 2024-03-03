@@ -16,8 +16,10 @@ const Navbar = ({ onSearch }) => {
   const navigate = useNavigate()
 
   useEffect(() => {
+    
     setUserRole(authUtils.getUserRole()); // get the user role 
-    document.body.style.backgroundColor = 'background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(45,253,29,1) 65%, rgba(252,176,69,1) 96%);'
+
+    document.body.style.backgroundColor = ''
   }, []);
 
   const handleSearch = () => {
@@ -60,6 +62,7 @@ const Navbar = ({ onSearch }) => {
 
 
   const handleDashboard = () => {
+
     navigate('/Dashboard')
 
   }
@@ -71,7 +74,7 @@ const Navbar = ({ onSearch }) => {
     if (newTheme === 'dark') {
       document.body.style.background = '#212529';
     } else {
-      document.body.style.background = 'linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(45,253,29,1) 65%, rgba(252,176,69,1) 96%)';
+      document.body.style.background = '';
     }
   }
 

@@ -17,9 +17,10 @@
 
     const getUserRole = () =>{
 
-        const isLoggedIn = localStorage.getItem('token') !== null ;
+        const isloginMn = localStorage.getItem('token') !== null ;
+        const isAuthanticatedd = localStorage.getItem('googleProfile') !== null;
 
-        if(isLoggedIn || isAuthanticateddGoogle){
+        if(isloginMn || isAuthanticatedd){
             const role = localStorage.getItem('role');
 
             console.log(role);

@@ -17,7 +17,7 @@ const Dashboard = () => {
 
         const token = localStorage.getItem('token');
 
-        const response = await axios.get(`http://localhost:5000/properties/owner`, {
+        const response = await axios.get(`https://room-rover-deploy.onrender.com/properties/owner`, {
 
           headers: { Authorization: `Bearer ${token}`}
 
@@ -43,7 +43,7 @@ const Dashboard = () => {
       const token = localStorage.getItem('token');
 
       // Delete property on the backend
-      await axios.delete(`http://localhost:5000/properties/properties/${propertyId}`, {
+      await axios.delete(`https://room-rover-deploy.onrender.com/properties/properties/${propertyId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

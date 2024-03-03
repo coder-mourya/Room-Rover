@@ -13,7 +13,7 @@ const PropertyDetails = ({ propertyId }) => {
   useEffect(() => {
     const fetchProperty = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/properties?_id=${propertyId}`);
+        const response = await axios.get(`https://room-rover-deploy.onrender.com/properties?_id=${propertyId}`);
 
         console.log("getedd in proprtydetails : ", propertyId);
 

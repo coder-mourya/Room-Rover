@@ -16,10 +16,9 @@
     text-decoration:  none;
 }
 
-.card{
-    box-shadow: -3px 2px 3px 3px rgb(97, 96, 96);
-}
 
-.card:hover{
-   opacity: 0.5;
-}
+@media only screen and (max-width: 764px) {
+         .custom-style{
+            width: 100%;
+         }
+  }

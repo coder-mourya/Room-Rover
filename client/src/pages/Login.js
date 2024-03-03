@@ -23,7 +23,7 @@ const navigate = useNavigate()
 
 
     try {
-     const response = await axios.post("http://localhost:5000/auth/login", {email, password, role});
+     const response = await axios.post("https://room-rover-deploy.onrender.com/auth/login", {email, password, role});
 
     console.log("Login successfull" , response.data);
 
@@ -62,7 +62,7 @@ const navigate = useNavigate()
     try {
       const decodedToken = jwtDecode(credentialResponse?.credential);
 
-      const response = await axios.post("http://localhost:5000/auth/google/login", {
+      const response = await axios.post("https://room-rover-deploy.onrender.com/auth/google/login", {
         email : decodedToken.email,
         role : role
       });

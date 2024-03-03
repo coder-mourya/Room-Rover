@@ -16,6 +16,9 @@ const getAllProperties = async (req, res) => {
   }
 };
 
+
+
+
 // Function to get a specific property by ID
 const getPropertyByOwner = async (req, res) => {
 

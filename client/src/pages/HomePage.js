@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import authUtils from "../utils/auth";
 import axios from 'axios';
 import "./style.css";
+import Carousel from 'react-bootstrap/Carousel';
+import defoultImg from "./defoult.jpg"
 
 const HomePage = ({ searchLocation, getUser, theme }) => {
 
@@ -19,7 +21,7 @@ const HomePage = ({ searchLocation, getUser, theme }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let url = "http://localhost:5000/properties";
+        let url = "https://room-rover-deploy.onrender.com/properties";
 
         if (searchLocation.trim() !== '') {
 
@@ -42,23 +44,23 @@ const HomePage = ({ searchLocation, getUser, theme }) => {
     fetchData();
 
 
-    const fetchUserName = async () => {
+    const fetchUserName = async () => {  
 
       try {
-        if (authUtils.isLoggedIn()) {
+        if (authUtils.isLoggedIn()) {  // checck authticat with manual
           const token = localStorage.getItem('token')
-          const response = await axios.get("http://localhost:5000/auth/users", {
+          const response = await axios.get("https://room-rover-deploy.onrender.com/auth/users", {
 
             headers: { Authorization: `Bearer ${token}` }
           });
 
           const { data } = response.data
           setUserName(data.username)
-        } else if (authUtils.isAuthanticateddGoogle()) {
+        } else if (authUtils.isAuthanticateddGoogle()) {  // checck authticat with google 
 
           const googleProfile = localStorage.getItem('googleProfile')
 
-          const response = await axios.get('http://localhost:5000/auth/getUserDetailsWithGoogle', {
+          const response = await axios.get('https://room-rover-deploy.onrender.com/auth/getUserDetailsWithGoogle', {
             headers: { Authorization: `Bearer ${googleProfile}` }
           })
 
@@ -107,14 +109,16 @@ const HomePage = ({ searchLocation, getUser, theme }) => {
   return (
     <div className={`container mt-4  ${theme === 'dark' ? 'text-light' : ''}`}>
 
-      <div className='container'>
-        <p>Hey , Its a test version of this app !! if you face any difficulties just relogin or <b>login as test@gmail.com password : test1234</b></p>
+      <div className='container text-light'>
+        <p>Hey , Its a test version of this app and its Running free web server so its can't manage heavy load !! if you face any difficulties just relogin or <b>login as test@gmail.com password : test1234</b></p>
       </div>
 
       <h2 className='text-light'> Welcome , {UserName}</h2>
 
 
       <h2 className="mb-4 text-light">Available Properties</h2>
+
+
       <div className="row">
 
 
@@ -125,14 +129,25 @@ const HomePage = ({ searchLocation, getUser, theme }) => {
 
 
               <div className="card-image-container">
-                {property.images.map((image, index) => (
-                  <img
-                    key={index}
-                    className="card-img-top"
-                    src={`http://localhost:5000/${image}`}
-                    alt={`Property `}
-                  />
-                ))}
+                <Carousel>
+                  
+                  {property.images.map((image, index) => (
+                    <Carousel.Item key={index} >
+
+                      <img
+
+                        className="d-block w-100"
+                        src={`https://room-rover-deploy.onrender.com/${image}`}
+                        alt={`Property ${index + 1 }`}
+
+                        onLoad={() => console.log(`Image ${index + 1} loaded: ${image}`)}
+                        onError={(e) =>{
+                          e.target.src = defoultImg;
+                        } }
+                      />
+                    </Carousel.Item>
+                  ))}
+                </Carousel>
               </div>
 
               <div className="card-body">

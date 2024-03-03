@@ -4,7 +4,8 @@ const router = express.Router();
 const propertyController = require("../controllers/propertyController")
 
 const uploadToLocal = require('../Middleware/multer')
-const {uploadToCloudinary} = require('../utils/cloudnery')
+
+const uploadToCloudinary = require('../utils/cloudnery')
 
 router.get('/', propertyController.getAllProperties);
 

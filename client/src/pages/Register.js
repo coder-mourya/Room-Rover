@@ -25,7 +25,7 @@ const RegisterPage = () => {
 
 
     try {
-      const response = await axios.post("http://localhost:5000/auth/register", { username, password, email, role });
+      const response = await axios.post("https://room-rover-deploy.onrender.com/auth/register", { username, password, email, role });
       console.log("Registeration successfull")
       setAlertMessage("Registeration successfull")
       setAlertType("sucessful")
@@ -66,7 +66,7 @@ const RegisterPage = () => {
 
 
 
-      const response = await axios.post("http://localhost:5000/auth/google/register", {
+      const response = await axios.post("https://room-rover-deploy.onrender.com/auth/google/register", {
         username: decodedToken.name,
 
         email: decodedToken.email,

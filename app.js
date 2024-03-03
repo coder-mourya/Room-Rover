@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 5000;
 
 
 app.use(cors({
-  origin: 'https://65db8551c560641407ba2c98--graceful-torte-862aa7.netlify.app',
+  origin: '*',
   credentials: true
 }));
 
