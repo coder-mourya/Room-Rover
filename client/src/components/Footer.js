@@ -8,7 +8,7 @@ const footer = () =>{
     return (
 
         <>
-        <div className="container-fluid mt-3 pt-3 pb-2 text-center text-white bg-dark">
+        <footer className="container-fluid mt-3 pt-3 pb-2 text-center text-white bg-dark custom-footer">
             <p>&copy; Room-River 2024</p>
 
            <ul>
@@ -18,7 +18,7 @@ const footer = () =>{
             
            </ul>
 
-        </div>
+        </footer>
         </>
 
     )

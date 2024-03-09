@@ -1,7 +1,7 @@
 import React, {useState}from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import Navbar  from './components/Navbar';
+import NavbarCompo  from './components/Navbar';
 import HomePage from './pages/HomePage'
 import Login from "./pages/Login";
 import Register from './pages/Register';
@@ -11,6 +11,7 @@ import PropertyDetails from './components/PropertyDetails';
 import Footer from './components/Footer';
 import About from './components/About';
 import ContactForm from "./components/Contact";
+import "./App.css";
 
 
 
@@ -34,9 +35,14 @@ function App() {
   
   return (
     <>
-    <Navbar  onSearch={handleSearch} />
 
-    
+
+
+    <NavbarCompo  onSearch={handleSearch} />
+
+
+    <div className='main'>
+
       <Routes>
       <Route exact path="/" element={<HomePage searchLocation={searchLocation} getUser={handleUser} />} />
 
@@ -48,8 +54,11 @@ function App() {
         <Route exact path='/About'  element={<About/>} />
         <Route exact path='/ContactForm' element={<ContactForm/>} />
       </Routes>
-   
+    </div>
+
     <Footer/>
+    
+
     </>
   );
 }

@@ -110,7 +110,7 @@ const HomePage = ({ searchLocation, getUser, theme }) => {
     <div className={`container mt-4  ${theme === 'dark' ? 'text-light' : ''}`}>
 
       <div className='container text-light'>
-        <p>Hey , Its a test version of this app and its Running free web server so its can't manage heavy load !! if you face any difficulties just relogin or <b>login as test@gmail.com password : test1234</b></p>
+        <p className='text-dark text-bg-light'>Hey , It's a test version of this app and its Running free web server so its can't manage heavy load !! if you face any difficulties just relogin or <b>login as test@gmail.com password : test1234</b></p>
       </div>
 
       <h2 className='text-light'> Welcome , {UserName}</h2>

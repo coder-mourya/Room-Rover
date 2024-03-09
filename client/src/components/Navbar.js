@@ -4,14 +4,21 @@ import "./navbar.css"
 import authUtils from '../utils/auth'; // for importing authUilts
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import  Form  from 'react-bootstrap/Form';
+import Navbar  from 'react-bootstrap/Navbar';
+import Nav from "react-bootstrap/Nav"
+import Button from "react-bootstrap/Button"
+import FormControl from "react-bootstrap/FormControl";
 
 
 
 
-const Navbar = ({ onSearch }) => {
+
+const NavbarCompo = ({ onSearch }) => {
   const [searchLocation, setSearchLocation] = useState("");
   const [theme, setTheme] = useState('');
   const [userRole, setUserRole] = useState('');
+ 
 
   const navigate = useNavigate()
 
@@ -84,89 +91,62 @@ const Navbar = ({ onSearch }) => {
 
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      
-        <Link to="/" className='navbar-brand'>
+   <>
+  
+  <Navbar expand="lg" variant="dark" bg="dark">
+      <Navbar.Brand as={Link} to="/">
         <img src={logo} alt="Logo" className="logo mx-4" />
         Room Rover
-        </Link>
-      
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
-            
-            <Link to="/" className='nav-link'>Home</Link>
-          </li>
-          <li className="nav-item">
-            <button className='nav-link' onClick={handleUploadProprty}>Upload</button>
-          </li>
-
-
+      </Navbar.Brand>
+      <Navbar.Toggle aria-controls="navbarNav" />
+      <Navbar.Collapse id="navbarNav">
+        <Nav className="ml-auto">
+          <Nav.Item>
+            <Nav.Link as={Link} to="/">Home</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link as={Link}  onClick={handleUploadProprty}>Upload</Nav.Link>
+          </Nav.Item>
           {userRole === 'owner' && (
-            <li className="nav-item">
-              <button className='nav-link' onClick={handleDashboard}  >Dashboard</button>
-            </li>
+            <Nav.Item>
+              <Button variant="link" onClick={handleDashboard}>Dashboard</Button>
+            </Nav.Item>
           )}
-
-        </ul>
-
-
-        <ul className="navbar-nav  " id="custom-with">
-
-          <li className='nav-item'>
-
-            <button className='nav-link' onClick={toggleTheme}> {toggleButtonText()} </button>
-          </li>
-
+        </Nav>
+        <Nav className="ml-auto" id="custom-with">
+          <Nav.Item>
+            <Nav.Link as={Link} onClick={toggleTheme}>{toggleButtonText()}</Nav.Link>
+          </Nav.Item>
           {authUtils.isLoggedIn() || authUtils.isAuthanticateddGoogle() ? (
-            <li className='nav-item'>
-              <button className='nav-link' onClick={handleLogout}>Logout</button>
-            </li>
+            <Nav.Item>
+              <Button variant="link" onClick={handleLogout}>Logout</Button>
+            </Nav.Item>
           ) : (
             <>
-              <li className='nav-item'>
-
-                <Link to="/Login" className='nav-link'>Login</Link>
-
-              </li>
-              <li className='nav-item'>
-
-                <Link to="/Register" className='nav-link'>Register</Link>
-
-              </li>
-
-
+              <Nav.Item>
+                <Nav.Link as={Link} to="/Login">Login</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link as={Link} to="/Register">Register</Nav.Link>
+              </Nav.Item>
             </>
           )}
-
-
-          <form className="d-flex">
-            <input
-              type="Search"
+          <Form className="d-flex">
+            <FormControl
+              type="search"
               id="search"
               value={searchLocation}
               onChange={(e) => setSearchLocation(e.target.value)}
-              className="form-control me-3"
               placeholder="Search"
               aria-label="Search"
             />
-            <button className="btn btn-outline-success" type="button" onClick={handleSearch}>Search</button>
-          </form>
-        </ul>
-      </div>
-    </nav>
+            <Button variant="outline-success" onClick={handleSearch}>Search</Button>
+          </Form>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
+   </>
   );
 };
 
-export default Navbar;
+export default NavbarCompo;
